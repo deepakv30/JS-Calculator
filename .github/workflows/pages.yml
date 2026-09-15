@@ -30,6 +30,9 @@ jobs:
       - name: Unit tests
         run: node test/evaluate.test.js
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Assemble site
         run: |
           mkdir -p _site
