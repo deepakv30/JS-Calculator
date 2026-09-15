@@ -1,11 +1,3 @@
-
-// document.getElementById('table').addEventListener('click', firstNumber)
-// function firstNumber(event){
-//     var x;
-//     x = event.target.innerText;
-//     console.log(x)
-// }
-
 // function to display output
 function displayOutput(num){
     document.getElementById('output-value').innerText = num;
@@ -50,9 +42,14 @@ for (let i = 0; i < operator.length; i++) {
 			}
             if(output != '' || history != ''){
                 if(this.id == '='){
-                    var result = eval(history + output)
-                    displayHistory('')
-                    displayOutput(result)
+                    var result = evaluateExpression(history + output);
+                    if (result.ok) {
+                        displayHistory('');
+                        displayOutput(String(result.value));
+                    } else {
+                        displayHistory('');
+                        displayOutput('Error');
+                    }
                 }else{
                     history = output + this.id;
                     displayHistory(history)
@@ -66,4 +63,3 @@ for (let i = 0; i < operator.length; i++) {
     })
     
 }
-
