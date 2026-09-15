@@ -2,11 +2,11 @@
 
 ## Outcome
 
-`JS-Calculator` deploys its static site to GitHub Pages via Actions on every push to `master`, and pull requests / pushes run unit tests plus a cheap static sanity check so broken HTML/JS does not ship silently.
+`JS-Calculator` deploys its static site to GitHub Pages via Actions on every push to `main`, and pull requests / pushes run unit tests plus a cheap static sanity check so broken HTML/JS does not ship silently.
 
 ## Context
 
-- Default branch: `master`.
+- Default branch: `main`.
 - Static assets at repo root: `index.html`, `script.js`, `style.css`, `evaluate.js`.
 - Unit tests: `node test/evaluate.test.js` (18 assertions).
 - Pages was not enabled; prior homepage pointed at a 404 (`js-calc`) or the portfolio mirror.
@@ -16,7 +16,7 @@
 
 **In**
 - `docs/specs/` index entry for this delivery.
-- `.github/workflows/ci.yml` (PR + push to `master`).
+- `.github/workflows/ci.yml` (PR + push to `main`).
 - `.github/workflows/pages.yml` (Actions-based Pages deploy).
 - README live URL, CI, and Pages deploy notes.
 - Enable Pages (`build_type=workflow`) and set repo homepage when API permits.
@@ -29,14 +29,14 @@
 ## Constraints
 
 - HTTPS-only clone/push/`gh`.
-- Never push directly to `master`; feature branch + PR only.
+- Never push directly to `main`; feature branch + PR only.
 - Author commits as `DeepakV <deepakv.knit@gmail.com>`.
 - Use current action majors: `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4`.
 - Prefer copying only site files into `_site/` for the Pages artifact.
 
 ## Invariants
 
-- **I1** CI workflow exists and runs tests + static sanity on PR/push to `master`.
+- **I1** CI workflow exists and runs tests + static sanity on PR/push to `main`.
   - Check: `test -f .github/workflows/ci.yml && grep -q evaluate.test.js .github/workflows/ci.yml`
 - **I2** Pages workflow deploys via Actions (not legacy branch source).
   - Check: `grep -q deploy-pages@v4 .github/workflows/pages.yml && grep -q upload-pages-artifact@v3 .github/workflows/pages.yml`
@@ -63,15 +63,15 @@
 
 ## Acceptance criteria
 
-- **Given** a pull request against `master`, **When** CI runs, **Then** `node test/evaluate.test.js` passes and static sanity confirms `index.html` exists and `script.js` references `evaluate`.
-- **Given** a push to `master` after merge, **When** `pages.yml` completes, **Then** the site is served at `https://deepakv30.github.io/JS-Calculator/`.
+- **Given** a pull request against `main`, **When** CI runs, **Then** `node test/evaluate.test.js` passes and static sanity confirms `index.html` exists and `script.js` references `evaluate`.
+- **Given** a push to `main` after merge, **When** `pages.yml` completes, **Then** the site is served at `https://deepakv30.github.io/JS-Calculator/`.
 - **Given** the repo Website field is updated, **When** a visitor opens the repo page, **Then** homepage is `https://deepakv30.github.io/JS-Calculator/`.
 - **Given** Pages is configured for Actions, **When** Settings → Pages is inspected, **Then** source is GitHub Actions (not a branch).
 
 ## Implementation notes
 
-- `ci.yml` triggers: `pull_request` and `push` to `master`.
-- `pages.yml` triggers: `push` to `master` and `workflow_dispatch`.
+- `ci.yml` triggers: `pull_request` and `push` to `main`.
+- `pages.yml` triggers: `push` to `main` and `workflow_dispatch`.
 - Permissions on Pages workflow: `contents: read`, `pages: write`, `id-token: write`.
 - Deploy job `environment: github-pages`; use `actions/deploy-pages@v4`.
 - Site copy example: `mkdir -p _site && cp index.html style.css script.js evaluate.js _site/`.

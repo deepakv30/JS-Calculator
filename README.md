@@ -6,7 +6,7 @@ A basic four-function JavaScript calculator (add, subtract, multiply, divide, mo
 
 **Website:** [https://deepakv30.github.io/JS-Calculator/](https://deepakv30.github.io/JS-Calculator/)
 
-GitHub Pages deploys this repository from **GitHub Actions** on every push to `master` (see [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). You can also trigger a deploy manually via **Actions → Deploy GitHub Pages → Run workflow**.
+GitHub Pages deploys this repository from **GitHub Actions** on every push to `main` (see [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). You can also trigger a deploy manually via **Actions → Deploy GitHub Pages → Run workflow**.
 
 ## Features
 
@@ -26,7 +26,7 @@ node test/evaluate.test.js
 
 ## CI
 
-Pull requests and pushes to `master` run [`.github/workflows/ci.yml`](.github/workflows/ci.yml):
+Pull requests and pushes to `main` run [`.github/workflows/ci.yml`](.github/workflows/ci.yml):
 
 1. Checkout + Node.js LTS
 2. `node test/evaluate.test.js` (18 assertions)
